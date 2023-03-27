@@ -16,7 +16,7 @@ public class UrlDeleteUseCaseImpl implements UrlDeleteUseCase {
   @Override
   public void deleteShortUrl(String url) {
 
-    if (!urlDomainRepository.deleteShortUrl(url)) {
+    if (urlDomainRepository.deleteShortUrl(url) == 0) {
       throw new DomainException(
           ErrorCodes.DOMAIN_SHORT_URL_DELETE.getCode(),
           MessageFormat.format(ErrorCodes.DOMAIN_SHORT_URL_DELETE.getMessage(), url),

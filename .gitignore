@@ -1,3 +1,8 @@
+#folders
+/build
+.idea
+.gradle
+
 # Compiled class file
 *.class
 

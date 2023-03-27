@@ -8,6 +8,5 @@ public interface UrlDomainRepository {
 
   UrlDomainModel findUrlByLongUrl(String url);
   UrlDomainModel findUrlByShortUrl(String url);
-
-  boolean deleteShortUrl(String url);
+  Long deleteShortUrl(String url);
 }

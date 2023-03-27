@@ -80,28 +80,26 @@ class UrlDaoRepositoryTest {
   }
 
   @Test
-  void givenCallEntityRepository_whenDeleteAExistenceShortUrl_thenDeleteTrue() {
+  void givenDeleteAUrl_whenTheShortUrlIsFound_thenReturnTheRowsAffectedNumber() {
     String shortUrl = urlDomainModel.getShortUrl();
-    when(urlRepository.findByShortUrl(shortUrl))
-        .thenReturn(Optional.of(urlEntity));
 
-    boolean result = urlDaoRepository.deleteShortUrl(shortUrl);
+    when(urlRepository.deleteByShortUrl(shortUrl))
+        .thenReturn(1L);
 
-    Assertions.assertTrue(result);
-    verify(
-        urlRepository,
-        times(1)).delete(urlEntity);
+    Long result = urlDaoRepository.deleteShortUrl(shortUrl);
+
+    Assertions.assertTrue(result > 0);
   }
 
   @Test
-  void givenCallEntityRepository_whenNotFoundAShortUrl_thenDeleteFalse() {
+  void givenDeleteAUrl_whenTheShortUrlIsNotFound_thenReturnZero() {
     String shortUrl = urlDomainModel.getShortUrl();
 
-    boolean result = urlDaoRepository.deleteShortUrl(shortUrl);
+    when(urlRepository.deleteByShortUrl(shortUrl))
+        .thenReturn(0L);
 
-    Assertions.assertFalse(result);
-    verify(
-        urlRepository,
-        times(0)).delete(urlEntity);
+    Long result = urlDaoRepository.deleteShortUrl(shortUrl);
+
+    Assertions.assertEquals(0, result);
   }
 }
