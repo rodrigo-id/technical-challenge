@@ -16,7 +16,7 @@ public class BeanCustomConfig {
 
   @Bean
   public UrlShortUseCase urlUseCaseImpl(UrlDomainRepository urlDomainRepository) {
-    return new UrlShortUseCaseImpl(urlDomainRepository, new ValidatorUtils());
+    return new UrlShortUseCaseImpl(urlDomainRepository, ValidatorUtils.getInstance());
   }
 
   @Bean
@@ -26,6 +26,6 @@ public class BeanCustomConfig {
 
   @Bean
   public UrlDeleteUseCase urlDeleteUseCase(UrlDomainRepository urlDomainRepository) {
-    return new UrlDeleteUseCaseImpl(urlDomainRepository);
+    return new UrlDeleteUseCaseImpl(urlDomainRepository, ValidatorUtils.getInstance());
   }
 }

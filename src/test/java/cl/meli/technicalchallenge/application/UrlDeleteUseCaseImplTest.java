@@ -5,13 +5,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import cl.meli.technicalchallenge.domain.port.output.UrlDomainRepository;
+import cl.meli.technicalchallenge.shared.ValidatorUtils;
 import cl.meli.technicalchallenge.shared.error.DomainException;
-import javax.persistence.Lob;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -21,15 +22,17 @@ class UrlDeleteUseCaseImplTest {
 
   @Mock
   UrlDomainRepository urlDomainRepository;
+  @Spy
+  ValidatorUtils validatorUtils;
 
   @BeforeEach
   void setUp() {
-    urlDeleteUseCase = new UrlDeleteUseCaseImpl(urlDomainRepository);
+    urlDeleteUseCase = new UrlDeleteUseCaseImpl(urlDomainRepository, validatorUtils);
   }
 
   @Test
-  void givenDeleteAUrl_whenGiveAShortUrl_thenTheNumberOfDeletedResultIsMayorToZero() {
-    String shortUrl = "http://short.url";
+  void givenDeleteAUrl_whenGiveAValidShortUrl_thenTheNumberOfDeletedResultIsMayorToZero() {
+    String shortUrl = "http://www.shurl.cl";
     when(urlDomainRepository.deleteShortUrl(shortUrl)).thenReturn(1L);
 
     urlDeleteUseCase.deleteShortUrl(shortUrl);
@@ -40,7 +43,7 @@ class UrlDeleteUseCaseImplTest {
   }
 
   @Test
-  void givenDeleteUrl_whenUrlIsNotDelete_thenThrowDomainException() {
+  void givenDeleteUrl_whenTheUrlIsNotValid_thenThrowDomainException() {
     String shortUrl = "";
 
     Assertions.assertThrows(

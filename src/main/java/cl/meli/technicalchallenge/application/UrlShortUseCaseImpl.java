@@ -4,8 +4,6 @@ import cl.meli.technicalchallenge.domain.model.UrlDomainModel;
 import cl.meli.technicalchallenge.domain.port.input.UrlShortUseCase;
 import cl.meli.technicalchallenge.domain.port.output.UrlDomainRepository;
 import cl.meli.technicalchallenge.shared.ValidatorUtils;
-import cl.meli.technicalchallenge.shared.error.DomainException;
-import cl.meli.technicalchallenge.shared.error.ErrorCodes;
 import java.text.MessageFormat;
 import java.util.Date;
 
@@ -21,13 +19,8 @@ public class UrlShortUseCaseImpl implements UrlShortUseCase {
 
   @Override
   public String createShortUrl(String requestUrl, String serverUrl) {
-    if(!validatorUtils.validateUrl(requestUrl)) {
-      throw new DomainException(
-          ErrorCodes.DOMAIN_INVALID_URL.getCode(),
-          MessageFormat.format(ErrorCodes.DOMAIN_INVALID_URL.getMessage(), requestUrl),
-          "UrlShortUseCaseImpl.shortUrl",
-          ErrorCodes.DOMAIN_INVALID_URL.getStatus());
-    }
+
+    validatorUtils.validateUrl(requestUrl);
 
     UrlDomainModel urlDomainModel =  urlDomainRepository.findUrlByLongUrl(requestUrl);
     if (urlDomainModel.isPresent()) {
