@@ -13,7 +13,11 @@ public enum ErrorCodes {
       HttpStatus.NOT_FOUND),
   DOMAIN_SHORT_URL_DELETE(
       "Error no fue posible eliminar la url proporcionada - url: {0}",
-      "0002",
+      "0003",
+      HttpStatus.NOT_FOUND),
+  DOMAIN_GENERATE_HASH(
+      "Error problemas al generar el hash",
+      "0004",
       HttpStatus.NOT_FOUND);
 
   private final String message;

@@ -6,7 +6,7 @@ public class DomainException extends RuntimeException{
 
   private final String code;
   private final String tagService;
-  private RuntimeException runtimeException;
+  private Exception exception;
   private final HttpStatus httpStatus;
 
   public DomainException(String code, String message, String tagService, HttpStatus httpStatus) {
@@ -15,12 +15,12 @@ public class DomainException extends RuntimeException{
     this.tagService = tagService;
     this.httpStatus = httpStatus;
   }
-  public DomainException(String code, String message, String tagService, RuntimeException runtimeException,
+  public DomainException(String code, String message, String tagService, Exception exception,
                          HttpStatus httpStatus) {
     super(message);
     this.code = code;
     this.tagService = tagService;
-    this.runtimeException = runtimeException;
+    this.exception = exception;
     this.httpStatus = httpStatus;
   }
 
@@ -32,8 +32,8 @@ public class DomainException extends RuntimeException{
     return tagService;
   }
 
-  public RuntimeException getRuntimeException() {
-    return runtimeException;
+  public Exception getException() {
+    return exception;
   }
 
   public HttpStatus getHttpStatus() {

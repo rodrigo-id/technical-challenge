@@ -21,8 +21,8 @@ public class ErrorHandler {
     notificationError.setMessage(domainException.getMessage());
     notificationError.setTimestamp(OffsetDateTime.now());
     notificationError.setDescription(
-        domainException.getRuntimeException() == null ? "" :
-        domainException.getRuntimeException().getMessage());
+        domainException.getException() == null ? "" :
+        domainException.getException().getMessage());
 
     return new ResponseEntity<>(notificationError, domainException.getHttpStatus());
   }
