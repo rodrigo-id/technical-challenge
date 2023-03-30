@@ -4,6 +4,7 @@ import cl.meli.technicalchallenge.domain.model.UrlDomainModel;
 import cl.meli.technicalchallenge.domain.port.output.UrlDomainRepository;
 import cl.meli.technicalchallenge.infraestructure.adapter.mapper.UrlRepositoryMapper;
 import cl.meli.technicalchallenge.infraestructure.data.UrlRepository;
+import javax.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -33,6 +34,7 @@ public class UrlDaoRepository implements UrlDomainRepository {
   }
 
   @Override
+  @Transactional
   public Long deleteShortUrl(String url) {
     return urlRepository.deleteByShortUrl(url);
   }

@@ -2,8 +2,10 @@ package cl.meli.technicalchallenge.shared;
 
 import cl.meli.technicalchallenge.shared.error.DomainException;
 import cl.meli.technicalchallenge.shared.error.ErrorCodes;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.text.MessageFormat;
-import org.apache.commons.validator.routines.UrlValidator;
 
 public class ValidatorUtils {
 
@@ -18,16 +20,16 @@ public class ValidatorUtils {
   }
 
   public boolean validateUrl(String url) {
-    UrlValidator validator = new UrlValidator();
-
-    if (validator.isValid(url)) {
-        return true;
+    try {
+      new URL(url).toURI();
+      return true;
+    } catch (MalformedURLException | URISyntaxException e) {
+      throw new DomainException(
+          ErrorCodes.DOMAIN_INVALID_URL.getCode(),
+          MessageFormat.format(ErrorCodes.DOMAIN_INVALID_URL.getMessage(), url),
+          "ValidatorUtils.validateUrl",
+          e,
+          ErrorCodes.DOMAIN_INVALID_URL.getStatus());
     }
-
-    throw new DomainException(
-        ErrorCodes.DOMAIN_INVALID_URL.getCode(),
-        MessageFormat.format(ErrorCodes.DOMAIN_INVALID_URL.getMessage(), url),
-        "ValidatorUtils.validateUrl",
-        ErrorCodes.DOMAIN_INVALID_URL.getStatus());
   }
 }

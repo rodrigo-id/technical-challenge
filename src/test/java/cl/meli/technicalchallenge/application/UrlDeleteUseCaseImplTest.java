@@ -44,10 +44,22 @@ class UrlDeleteUseCaseImplTest {
 
   @Test
   void givenDeleteUrl_whenTheUrlIsNotValid_thenThrowDomainException() {
-    String shortUrl = "";
+    String shortUrl = "ht://lo-js";
 
     Assertions.assertThrows(
         DomainException.class,
         () -> urlDeleteUseCase.deleteShortUrl(shortUrl));
+  }
+
+  @Test
+  void givenDeleteUrl_whenUrlDoesNotExistInDb_thenThrowDomainException() {
+    String shortUrl = "http://www.shurl.cl";
+
+    when(urlDomainRepository.deleteShortUrl(shortUrl)).thenReturn(0L);
+
+    Assertions.assertThrows(
+        DomainException.class,
+        () -> urlDeleteUseCase.deleteShortUrl(shortUrl));
+
   }
 }
