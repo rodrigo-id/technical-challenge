@@ -6,8 +6,9 @@ import static org.mockito.Mockito.when;
 
 import cl.meli.technicalchallenge.domain.model.UrlDomainModel;
 import cl.meli.technicalchallenge.infraestructure.adapter.mapper.UrlRepositoryMapper;
-import cl.meli.technicalchallenge.infraestructure.data.UrlRepository;
-import cl.meli.technicalchallenge.infraestructure.data.entity.UrlEntity;
+import cl.meli.technicalchallenge.infraestructure.data.cache.CacheDataRepository;
+import cl.meli.technicalchallenge.infraestructure.data.relational.UrlRepository;
+import cl.meli.technicalchallenge.infraestructure.data.relational.entity.UrlEntity;
 import cl.meli.technicalchallenge.mock.UrlDomainModelMock;
 import cl.meli.technicalchallenge.mock.UrlEntityMock;
 import java.util.Optional;
@@ -25,13 +26,15 @@ class UrlDaoRepositoryTest {
   UrlRepository urlRepository;
   @Mock
   UrlRepositoryMapper urlRepositoryMapper;
+  @Mock
+  CacheDataRepository cacheDataRepository;
 
   UrlDomainModel urlDomainModel;
   UrlEntity urlEntity;
 
   @BeforeEach
   void setUp() {
-    urlDaoRepository = new UrlDaoRepository(urlRepository, urlRepositoryMapper);
+    urlDaoRepository = new UrlDaoRepository(urlRepository, urlRepositoryMapper, cacheDataRepository);
     urlDomainModel = UrlDomainModelMock.buildForTest();
     urlEntity = UrlEntityMock.buildForTest();
   }

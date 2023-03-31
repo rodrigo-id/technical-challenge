@@ -1,7 +1,7 @@
 package cl.meli.technicalchallenge.infraestructure.adapter.mapper;
 
 import cl.meli.technicalchallenge.domain.model.UrlDomainModel;
-import cl.meli.technicalchallenge.infraestructure.data.entity.UrlEntity;
+import cl.meli.technicalchallenge.infraestructure.data.relational.entity.UrlEntity;
 import cl.meli.technicalchallenge.mock.UrlDomainModelMock;
 import cl.meli.technicalchallenge.mock.UrlEntityMock;
 import java.util.Optional;

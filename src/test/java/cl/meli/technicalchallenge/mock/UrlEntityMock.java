@@ -1,6 +1,6 @@
 package cl.meli.technicalchallenge.mock;
 
-import cl.meli.technicalchallenge.infraestructure.data.entity.UrlEntity;
+import cl.meli.technicalchallenge.infraestructure.data.relational.entity.UrlEntity;
 import java.util.Date;
 
 public class UrlEntityMock {
