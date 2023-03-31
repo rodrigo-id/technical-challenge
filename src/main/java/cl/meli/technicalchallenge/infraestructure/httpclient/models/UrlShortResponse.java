@@ -1,9 +1,9 @@
 package cl.meli.technicalchallenge.infraestructure.httpclient.models;
 
-public class UrlResponse {
+public class UrlShortResponse {
   private String shortUrl;
 
-  public UrlResponse(String shortUrl) {
+  public UrlShortResponse(String shortUrl) {
     this.shortUrl = shortUrl;
   }
 

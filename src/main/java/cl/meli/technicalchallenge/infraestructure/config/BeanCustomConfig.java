@@ -9,7 +9,7 @@ import cl.meli.technicalchallenge.domain.port.input.UrlShortUseCase;
 import cl.meli.technicalchallenge.domain.port.output.UrlDomainRepository;
 import cl.meli.technicalchallenge.domain.service.HashService;
 import cl.meli.technicalchallenge.domain.service.impl.HashServiceImpl;
-import cl.meli.technicalchallenge.shared.ValidatorUtils;
+import cl.meli.technicalchallenge.shared.utils.ValidatorUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,7 +25,7 @@ public class BeanCustomConfig {
   public UrlShortUseCase urlUseCaseImpl(UrlDomainRepository urlDomainRepository, HashService hashService) {
     return new UrlShortUseCaseImpl(
         urlDomainRepository,
-        ValidatorUtils.getInstance(),
+        ValidatorUtil.getInstance(),
         hashService);
   }
 
@@ -36,6 +36,6 @@ public class BeanCustomConfig {
 
   @Bean
   public UrlDeleteUseCase urlDeleteUseCase(UrlDomainRepository urlDomainRepository) {
-    return new UrlDeleteUseCaseImpl(urlDomainRepository, ValidatorUtils.getInstance());
+    return new UrlDeleteUseCaseImpl(urlDomainRepository, ValidatorUtil.getInstance());
   }
 }

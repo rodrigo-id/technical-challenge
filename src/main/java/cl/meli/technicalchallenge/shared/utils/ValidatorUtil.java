@@ -1,4 +1,4 @@
-package cl.meli.technicalchallenge.shared;
+package cl.meli.technicalchallenge.shared.utils;
 
 import cl.meli.technicalchallenge.shared.error.DomainException;
 import cl.meli.technicalchallenge.shared.error.ErrorCodes;
@@ -7,16 +7,16 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.MessageFormat;
 
-public class ValidatorUtils {
+public class ValidatorUtil {
 
-  private static ValidatorUtils validatorUtils;
-  private ValidatorUtils(){}
+  private static ValidatorUtil validatorUtil;
+  private ValidatorUtil(){}
 
-  public static ValidatorUtils getInstance(){
-    if (validatorUtils == null) {
-      return new ValidatorUtils();
+  public static ValidatorUtil getInstance(){
+    if (validatorUtil == null) {
+      return new ValidatorUtil();
     }
-    return validatorUtils;
+    return validatorUtil;
   }
 
   public boolean validateUrl(String url) {
@@ -27,7 +27,7 @@ public class ValidatorUtils {
       throw new DomainException(
           ErrorCodes.DOMAIN_INVALID_URL.getCode(),
           MessageFormat.format(ErrorCodes.DOMAIN_INVALID_URL.getMessage(), url),
-          "ValidatorUtils.validateUrl",
+          "ValidatorUtil.validateUrl",
           e,
           ErrorCodes.DOMAIN_INVALID_URL.getStatus());
     }

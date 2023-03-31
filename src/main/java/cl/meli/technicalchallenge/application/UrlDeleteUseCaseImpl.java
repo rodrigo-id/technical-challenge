@@ -2,23 +2,23 @@ package cl.meli.technicalchallenge.application;
 
 import cl.meli.technicalchallenge.domain.port.input.UrlDeleteUseCase;
 import cl.meli.technicalchallenge.domain.port.output.UrlDomainRepository;
-import cl.meli.technicalchallenge.shared.ValidatorUtils;
+import cl.meli.technicalchallenge.shared.utils.ValidatorUtil;
 import cl.meli.technicalchallenge.shared.error.DomainException;
 import cl.meli.technicalchallenge.shared.error.ErrorCodes;
 import java.text.MessageFormat;
 
 public class UrlDeleteUseCaseImpl implements UrlDeleteUseCase {
   private final UrlDomainRepository urlDomainRepository;
-  private final ValidatorUtils validatorUtils;
+  private final ValidatorUtil validatorUtil;
 
-  public UrlDeleteUseCaseImpl(UrlDomainRepository urlDomainRepository, ValidatorUtils validatorUtils) {
+  public UrlDeleteUseCaseImpl(UrlDomainRepository urlDomainRepository, ValidatorUtil validatorUtil) {
     this.urlDomainRepository = urlDomainRepository;
-    this.validatorUtils = validatorUtils;
+    this.validatorUtil = validatorUtil;
   }
 
   @Override
   public void deleteShortUrl(String url) {
-    validatorUtils.validateUrl(url);
+    validatorUtil.validateUrl(url);
 
     if (urlDomainRepository.deleteShortUrl(url) == 0) {
       throw new DomainException(

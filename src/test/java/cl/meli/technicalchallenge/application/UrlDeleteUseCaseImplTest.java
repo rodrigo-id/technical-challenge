@@ -5,7 +5,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import cl.meli.technicalchallenge.domain.port.output.UrlDomainRepository;
-import cl.meli.technicalchallenge.shared.ValidatorUtils;
+import cl.meli.technicalchallenge.shared.utils.ValidatorUtil;
 import cl.meli.technicalchallenge.shared.error.DomainException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,11 +23,11 @@ class UrlDeleteUseCaseImplTest {
   @Mock
   UrlDomainRepository urlDomainRepository;
   @Spy
-  ValidatorUtils validatorUtils;
+  ValidatorUtil validatorUtil;
 
   @BeforeEach
   void setUp() {
-    urlDeleteUseCase = new UrlDeleteUseCaseImpl(urlDomainRepository, validatorUtils);
+    urlDeleteUseCase = new UrlDeleteUseCaseImpl(urlDomainRepository, validatorUtil);
   }
 
   @Test

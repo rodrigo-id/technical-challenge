@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 import cl.meli.technicalchallenge.domain.port.input.UrlDeleteUseCase;
 import cl.meli.technicalchallenge.domain.port.input.UrlShortUseCase;
 import cl.meli.technicalchallenge.infraestructure.httpclient.models.UrlRequest;
-import cl.meli.technicalchallenge.infraestructure.httpclient.models.UrlResponse;
+import cl.meli.technicalchallenge.infraestructure.httpclient.models.UrlShortResponse;
 import java.text.MessageFormat;
 import javax.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Assertions;
@@ -20,9 +20,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 @ExtendWith(MockitoExtension.class)
-class UrlControllerTest {
+class UrlShortControllerTest {
 
-  UrlController urlController;
+  UrlShortController urlShortController;
 
   @Mock
   UrlShortUseCase urlShortUseCase;
@@ -32,7 +32,7 @@ class UrlControllerTest {
 
   @BeforeEach
   void setUp() {
-    urlController = new UrlController(urlShortUseCase, urlDeleteUseCase);
+    urlShortController = new UrlShortController(urlShortUseCase, urlDeleteUseCase);
     urlRequest.setUrl("http://www.soyunaurl.com/usada-como-prueba");
   }
 
@@ -46,15 +46,15 @@ class UrlControllerTest {
     when(urlShortUseCase.createShortUrl(urlRequest.getUrl(), serverBaseUrl))
         .thenReturn(serverUrl);
 
-    ResponseEntity<UrlResponse> urlResponseResponseEntity = urlController
+    ResponseEntity<UrlShortResponse> urlResponseEntity = urlShortController
         .createShortUrl(httpServletRequest, urlRequest);
 
-    Assertions.assertEquals(urlResponseResponseEntity.getBody().getShortUrl(), serverUrl);
+    Assertions.assertEquals(urlResponseEntity.getBody().getShortUrl(), serverUrl);
   }
 
   @Test
   void givenUrlController_whenDeleteAShortUrl_thenDeleteWithAStatusCode200() {
-    ResponseEntity<Void> response = urlController.deleteShortUrl(urlRequest);
+    ResponseEntity<Void> response = urlShortController.deleteShortUrl(urlRequest);
 
     Assertions.assertEquals(200, response.getStatusCode().value());
     verify(urlDeleteUseCase, times(1)).deleteShortUrl(urlRequest.getUrl());
