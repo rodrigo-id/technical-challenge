@@ -6,7 +6,7 @@ import cl.meli.technicalchallenge.domain.model.UrlDomainModel;
 import cl.meli.technicalchallenge.domain.port.output.UrlDomainRepository;
 import cl.meli.technicalchallenge.domain.service.HashService;
 import cl.meli.technicalchallenge.mock.UrlDomainModelMock;
-import cl.meli.technicalchallenge.shared.ValidatorUtils;
+import cl.meli.technicalchallenge.shared.utils.ValidatorUtil;
 import cl.meli.technicalchallenge.shared.error.DomainException;
 import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
@@ -25,13 +25,13 @@ class UrlShortUseCaseImplTest {
   @Mock
   UrlDomainRepository urlDomainRepository;
   @Spy
-  ValidatorUtils validatorUtils;
+  ValidatorUtil validatorUtil;
   @Mock
   HashService hashService;
 
   @BeforeEach
   void setUp() {
-    urlShortUseCase = new UrlShortUseCaseImpl(urlDomainRepository, validatorUtils, hashService);
+    urlShortUseCase = new UrlShortUseCaseImpl(urlDomainRepository, validatorUtil, hashService);
   }
 
   @Test

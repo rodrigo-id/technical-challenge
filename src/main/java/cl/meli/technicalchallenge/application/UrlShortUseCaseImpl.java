@@ -4,7 +4,7 @@ import cl.meli.technicalchallenge.domain.model.UrlDomainModel;
 import cl.meli.technicalchallenge.domain.port.input.UrlShortUseCase;
 import cl.meli.technicalchallenge.domain.port.output.UrlDomainRepository;
 import cl.meli.technicalchallenge.domain.service.HashService;
-import cl.meli.technicalchallenge.shared.ValidatorUtils;;
+import cl.meli.technicalchallenge.shared.utils.ValidatorUtil;;
 import cl.meli.technicalchallenge.shared.error.DomainException;
 import cl.meli.technicalchallenge.shared.error.ErrorCodes;
 import java.security.NoSuchAlgorithmException;
@@ -14,22 +14,22 @@ import java.util.Date;
 public class UrlShortUseCaseImpl implements UrlShortUseCase {
 
   private final UrlDomainRepository urlDomainRepository;
-  private final ValidatorUtils validatorUtils;
+  private final ValidatorUtil validatorUtil;
   private final HashService hashService;
 
   public UrlShortUseCaseImpl(
       UrlDomainRepository urlDomainRepository,
-      ValidatorUtils validatorUtils,
+      ValidatorUtil validatorUtil,
       HashService hashService) {
     this.urlDomainRepository = urlDomainRepository;
-    this.validatorUtils = validatorUtils;
+    this.validatorUtil = validatorUtil;
     this.hashService = hashService;
   }
 
   @Override
   public String createShortUrl(String requestUrl, String serverUrl) {
 
-    validatorUtils.validateUrl(requestUrl);
+    validatorUtil.validateUrl(requestUrl);
 
     UrlDomainModel urlDomainModel =  urlDomainRepository.findUrlByLongUrl(requestUrl);
     if (urlDomainModel.isPresent()) {
