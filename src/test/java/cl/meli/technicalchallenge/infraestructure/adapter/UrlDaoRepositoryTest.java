@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 
 import cl.meli.technicalchallenge.domain.model.UrlDomainModel;
 import cl.meli.technicalchallenge.infraestructure.adapter.mapper.UrlRepositoryMapper;
-import cl.meli.technicalchallenge.infraestructure.data.cache.CacheDataRepository;
 import cl.meli.technicalchallenge.infraestructure.data.relational.UrlRepository;
 import cl.meli.technicalchallenge.infraestructure.data.relational.entity.UrlEntity;
 import cl.meli.technicalchallenge.mock.UrlDomainModelMock;
@@ -18,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.cache.CacheManager;
 
 @ExtendWith(MockitoExtension.class)
 class UrlDaoRepositoryTest {
@@ -27,14 +27,13 @@ class UrlDaoRepositoryTest {
   @Mock
   UrlRepositoryMapper urlRepositoryMapper;
   @Mock
-  CacheDataRepository cacheDataRepository;
-
+  CacheManager cacheManager;
   UrlDomainModel urlDomainModel;
   UrlEntity urlEntity;
 
   @BeforeEach
   void setUp() {
-    urlDaoRepository = new UrlDaoRepository(urlRepository, urlRepositoryMapper, cacheDataRepository);
+    urlDaoRepository = new UrlDaoRepository(urlRepository, urlRepositoryMapper, cacheManager);
     urlDomainModel = UrlDomainModelMock.buildForTest();
     urlEntity = UrlEntityMock.buildForTest();
   }
@@ -84,24 +83,21 @@ class UrlDaoRepositoryTest {
 
   @Test
   void givenDeleteAUrl_whenTheShortUrlIsFound_thenReturnTheRowsAffectedNumber() {
-    String shortUrl = urlDomainModel.getShortUrl();
-
-    when(urlRepository.deleteByShortUrl(shortUrl))
+    when(urlRepository.deleteByShortUrl(urlDomainModel.getShortUrl()))
         .thenReturn(1L);
 
-    Long result = urlDaoRepository.deleteShortUrl(shortUrl);
+    Long result = urlDaoRepository.deleteShortUrl(urlDomainModel);
 
     Assertions.assertTrue(result > 0);
   }
 
   @Test
   void givenDeleteAUrl_whenTheShortUrlIsNotFound_thenReturnZero() {
-    String shortUrl = urlDomainModel.getShortUrl();
 
-    when(urlRepository.deleteByShortUrl(shortUrl))
+    when(urlRepository.deleteByShortUrl(urlDomainModel.getShortUrl()))
         .thenReturn(0L);
 
-    Long result = urlDaoRepository.deleteShortUrl(shortUrl);
+    Long result = urlDaoRepository.deleteShortUrl(urlDomainModel);
 
     Assertions.assertEquals(0, result);
   }

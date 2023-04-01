@@ -31,7 +31,7 @@ public class UrlShortUseCaseImpl implements UrlShortUseCase {
 
     validatorUtil.validateUrl(requestUrl);
 
-    UrlDomainModel urlDomainModel =  urlDomainRepository.findUrlByLongUrl(requestUrl);
+    UrlDomainModel urlDomainModel = urlDomainRepository.findUrlByLongUrl(requestUrl);
     if (urlDomainModel.isPresent()) {
       return urlDomainModel.getShortUrl();
     }

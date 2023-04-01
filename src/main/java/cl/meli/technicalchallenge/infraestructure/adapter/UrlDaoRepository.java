@@ -3,52 +3,56 @@ package cl.meli.technicalchallenge.infraestructure.adapter;
 import cl.meli.technicalchallenge.domain.model.UrlDomainModel;
 import cl.meli.technicalchallenge.domain.port.output.UrlDomainRepository;
 import cl.meli.technicalchallenge.infraestructure.adapter.mapper.UrlRepositoryMapper;
-import cl.meli.technicalchallenge.infraestructure.data.cache.CacheDataRepository;
-import cl.meli.technicalchallenge.infraestructure.data.cache.CacheEntity;
 import cl.meli.technicalchallenge.infraestructure.data.relational.UrlRepository;
-import cl.meli.technicalchallenge.infraestructure.data.relational.entity.UrlEntity;
-import java.util.Optional;
+import java.util.Objects;
 import javax.transaction.Transactional;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UrlDaoRepository implements UrlDomainRepository {
 
+  private static final String URL_DATA = "urlData";
   private final UrlRepository urlRepository;
   private final UrlRepositoryMapper urlRepositoryMapper;
-
-  private final CacheDataRepository cacheDataRepository;
+  private final CacheManager cacheManager;
 
   public UrlDaoRepository(UrlRepository urlRepository, UrlRepositoryMapper urlRepositoryMapper,
-                          CacheDataRepository cacheDataRepository) {
+                          CacheManager cacheManager) {
     this.urlRepository = urlRepository;
     this.urlRepositoryMapper = urlRepositoryMapper;
-    this.cacheDataRepository = cacheDataRepository;
+    this.cacheManager = cacheManager;
   }
 
   @Override
   public void saveUrl(UrlDomainModel urlDomainModel) {
-    UrlEntity urlEntity = urlRepositoryMapper.toUrlEntity(urlDomainModel);
-    urlRepository.save(urlEntity);
-
-    CacheEntity cacheEntity = new CacheEntity();
-    cacheDataRepository.save(cacheEntity);
+    urlRepository.save(urlRepositoryMapper.toUrlEntity(urlDomainModel));
   }
 
   @Override
+  @Cacheable(value = URL_DATA, key = "#url", unless = "#result.isPresent == false")
   public UrlDomainModel findUrlByLongUrl(String url) {
     return urlRepositoryMapper.toUrlDomainModel(urlRepository.findByLongUrl(url));
   }
 
   @Override
+  @Cacheable(value = URL_DATA, key = "#url", unless = "#result.isPresent == false")
   public UrlDomainModel findUrlByShortUrl(String url) {
     return urlRepositoryMapper.toUrlDomainModel(urlRepository.findByShortUrl(url));
   }
 
   @Override
   @Transactional
-  public Long deleteShortUrl(String url) {
-    return urlRepository.deleteByShortUrl(url);
+  public Long deleteShortUrl(UrlDomainModel urlDomain) {
+    this.evictCache(urlDomain);
+    return urlRepository.deleteByShortUrl(urlDomain.getShortUrl());
   }
+
+  private void evictCache(UrlDomainModel urlDomainModel) {
+    Objects.requireNonNull(cacheManager.getCache(URL_DATA)).evict(urlDomainModel.getShortUrl());
+    Objects.requireNonNull(cacheManager.getCache(URL_DATA)).evict(urlDomainModel.getLongUrl());
+  }
+
+
 }

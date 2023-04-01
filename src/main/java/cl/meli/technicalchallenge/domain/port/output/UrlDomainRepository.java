@@ -7,5 +7,5 @@ public interface UrlDomainRepository {
   void saveUrl(UrlDomainModel urlDomainModel);
   UrlDomainModel findUrlByLongUrl(String url);
   UrlDomainModel findUrlByShortUrl(String url);
-  Long deleteShortUrl(String url);
+  Long deleteShortUrl(UrlDomainModel urlDomain);
 }
