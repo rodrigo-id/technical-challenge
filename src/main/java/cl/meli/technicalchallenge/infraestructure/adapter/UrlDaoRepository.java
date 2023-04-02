@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UrlDaoRepository implements UrlDomainRepository {
 
-  private static final String URL_DATA = "urlData";
+  private static final String CACHE_DATA = "urlData";
   private final UrlRepository urlRepository;
   private final UrlRepositoryMapper urlRepositoryMapper;
   private final CacheManager cacheManager;
@@ -31,13 +31,13 @@ public class UrlDaoRepository implements UrlDomainRepository {
   }
 
   @Override
-  @Cacheable(value = URL_DATA, key = "#url", unless = "#result.isPresent == false")
+  @Cacheable(value = CACHE_DATA, key = "#url", unless = "#result.isPresent == false")
   public UrlDomainModel findUrlByLongUrl(String url) {
     return urlRepositoryMapper.toUrlDomainModel(urlRepository.findByLongUrl(url));
   }
 
   @Override
-  @Cacheable(value = URL_DATA, key = "#url", unless = "#result.isPresent == false")
+  @Cacheable(value = CACHE_DATA, key = "#url", unless = "#result.isPresent == false")
   public UrlDomainModel findUrlByShortUrl(String url) {
     return urlRepositoryMapper.toUrlDomainModel(urlRepository.findByShortUrl(url));
   }
@@ -50,8 +50,8 @@ public class UrlDaoRepository implements UrlDomainRepository {
   }
 
   private void evictCache(UrlDomainModel urlDomainModel) {
-    Objects.requireNonNull(cacheManager.getCache(URL_DATA)).evict(urlDomainModel.getShortUrl());
-    Objects.requireNonNull(cacheManager.getCache(URL_DATA)).evict(urlDomainModel.getLongUrl());
+    Objects.requireNonNull(cacheManager.getCache(CACHE_DATA)).evict(urlDomainModel.getShortUrl());
+    Objects.requireNonNull(cacheManager.getCache(CACHE_DATA)).evict(urlDomainModel.getLongUrl());
   }
 
 

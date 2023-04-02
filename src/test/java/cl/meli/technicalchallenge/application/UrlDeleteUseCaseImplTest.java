@@ -37,6 +37,7 @@ class UrlDeleteUseCaseImplTest {
 
   @Test
   void givenDeleteAUrl_whenGiveAValidShortUrl_thenTheNumberOfDeletedResultIsMayorToZero() {
+    when(urlDomainRepository.findUrlByShortUrl(urlDomainModel.getShortUrl())).thenReturn(urlDomainModel);
     when(urlDomainRepository.deleteShortUrl(urlDomainModel)).thenReturn(1L);
 
     urlDeleteUseCase.deleteShortUrl(urlDomainModel.getShortUrl());
@@ -57,11 +58,24 @@ class UrlDeleteUseCaseImplTest {
 
   @Test
   void givenDeleteUrl_whenUrlDoesNotExistInDb_thenThrowDomainException() {
+    String shortUrl = "http://lo-js.com";
+    when(urlDomainRepository.findUrlByShortUrl(shortUrl)).thenReturn(UrlDomainModel.builder().build());
+
+    Assertions.assertThrows(
+        DomainException.class,
+        () -> urlDeleteUseCase.deleteShortUrl(shortUrl));
+
+  }
+
+  @Test
+  void givenDeleteUrl_whenUrlCannotByDelete_thenThrowDomainException() {
+    String shortUrl = "http://lo-js.com";
+    when(urlDomainRepository.findUrlByShortUrl(shortUrl)).thenReturn(urlDomainModel);
     when(urlDomainRepository.deleteShortUrl(urlDomainModel)).thenReturn(0L);
 
     Assertions.assertThrows(
         DomainException.class,
-        () -> urlDeleteUseCase.deleteShortUrl(urlDomainModel.getShortUrl()));
+        () -> urlDeleteUseCase.deleteShortUrl(shortUrl));
 
   }
 }
