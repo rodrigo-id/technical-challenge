@@ -1,5 +1,7 @@
 package cl.meli.technicalchallenge.domain.port.output;
 
+import cl.meli.technicalchallenge.domain.model.LogDomainModel;
+
 public interface LogDomainRepository {
-  void save(String url);
+  void save(LogDomainModel logDomainModel);
 }

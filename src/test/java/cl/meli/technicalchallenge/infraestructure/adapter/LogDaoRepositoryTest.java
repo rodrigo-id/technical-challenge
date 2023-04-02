@@ -4,9 +4,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import cl.meli.technicalchallenge.domain.model.LogDomainModel;
 import cl.meli.technicalchallenge.infraestructure.adapter.mapper.LogRepositoryMapper;
 import cl.meli.technicalchallenge.infraestructure.data.urlstorage.LogRepository;
 import cl.meli.technicalchallenge.infraestructure.data.urlstorage.entities.LogEntity;
+import cl.meli.technicalchallenge.mock.LogDomainModelMock;
 import cl.meli.technicalchallenge.mock.LogEntityMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,10 +35,11 @@ class LogDaoRepositoryTest {
   @Test
   void givenSaveLogEntity_whenMethodSave_thenOk() {
     LogEntity logEntityMock = LogEntityMock.buildForTest();
-    String url = logEntityMock.getShortUrlVisited();
-    when(logRepositoryMapper.toLogEntity(url)).thenReturn(logEntityMock);
+    LogDomainModel logDomainModelMock = LogDomainModelMock.buildNewModelForTest();
 
-    logDaoRepository.save(url);
+    when(logRepositoryMapper.toLogEntity(logDomainModelMock)).thenReturn(logEntityMock);
+
+    logDaoRepository.save(logDomainModelMock);
 
     verify(
         logRepository,

@@ -1,5 +1,6 @@
 package cl.meli.technicalchallenge.infraestructure.adapter;
 
+import cl.meli.technicalchallenge.domain.model.LogDomainModel;
 import cl.meli.technicalchallenge.domain.port.output.LogDomainRepository;
 import cl.meli.technicalchallenge.infraestructure.adapter.mapper.LogRepositoryMapper;
 import cl.meli.technicalchallenge.infraestructure.data.urlstorage.LogRepository;
@@ -16,7 +17,7 @@ public class LogDaoRepository implements LogDomainRepository {
   }
 
   @Override
-  public void save(String url) {
-    logRepository.save(logRepositoryMapper.toLogEntity(url));
+  public void save(LogDomainModel logDomainModel) {
+    logRepository.save(logRepositoryMapper.toLogEntity(logDomainModel));
   }
 }

@@ -5,6 +5,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import cl.meli.technicalchallenge.domain.port.input.UrlDeleteUseCase;
+import cl.meli.technicalchallenge.domain.port.input.UrlLogUseCase;
 import cl.meli.technicalchallenge.domain.port.input.UrlShortUseCase;
 import cl.meli.technicalchallenge.infraestructure.httpclient.models.UrlRequest;
 import cl.meli.technicalchallenge.infraestructure.httpclient.models.UrlShortResponse;
@@ -28,11 +29,14 @@ class UrlShortControllerTest {
   UrlShortUseCase urlShortUseCase;
   @Mock
   UrlDeleteUseCase urlDeleteUseCase;
+  @Mock
+  UrlLogUseCase urlLogUseCase;
+
   UrlRequest urlRequest = new UrlRequest();
 
   @BeforeEach
   void setUp() {
-    urlShortController = new UrlShortController(urlShortUseCase, urlDeleteUseCase);
+    urlShortController = new UrlShortController(urlShortUseCase, urlDeleteUseCase, urlLogUseCase);
     urlRequest.setUrl("http://www.soyunaurl.com/usada-como-prueba");
   }
 

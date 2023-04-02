@@ -1,6 +1,7 @@
 package cl.meli.technicalchallenge.infraestructure.httpclient.controller;
 
 import cl.meli.technicalchallenge.domain.port.input.UrlDeleteUseCase;
+import cl.meli.technicalchallenge.domain.port.input.UrlLogUseCase;
 import cl.meli.technicalchallenge.domain.port.input.UrlShortUseCase;
 import cl.meli.technicalchallenge.infraestructure.httpclient.models.UrlRequest;
 import cl.meli.technicalchallenge.infraestructure.httpclient.models.UrlShortResponse;
@@ -19,10 +20,13 @@ public class UrlShortController {
   private final UrlShortUseCase urlShortUseCase;
   private final UrlDeleteUseCase urlDeleteUseCase;
   private UrlConverterUtil urlConverterUtil;
+  private final UrlLogUseCase urlLogUseCase;
 
-  public UrlShortController(UrlShortUseCase urlShortUseCase, UrlDeleteUseCase urlDeleteUseCase) {
+  public UrlShortController(UrlShortUseCase urlShortUseCase, UrlDeleteUseCase urlDeleteUseCase,
+                            UrlLogUseCase urlLogUseCase) {
     this.urlShortUseCase = urlShortUseCase;
     this.urlDeleteUseCase = urlDeleteUseCase;
+    this.urlLogUseCase = urlLogUseCase;
     this.urlConverterUtil = UrlConverterUtil.getInstance();
   }
 
@@ -45,6 +49,7 @@ public class UrlShortController {
   @DeleteMapping("/delete")
   public ResponseEntity<Void> deleteShortUrl(@RequestBody @Valid UrlRequest urlRequest) {
     urlDeleteUseCase.deleteShortUrl(urlRequest.getUrl());
+    urlLogUseCase.deactivate(urlRequest.getUrl());
     return new ResponseEntity<>(HttpStatus.OK);
   }
 }

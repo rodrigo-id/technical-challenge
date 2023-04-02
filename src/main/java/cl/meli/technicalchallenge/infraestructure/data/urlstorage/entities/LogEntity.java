@@ -19,8 +19,14 @@ public class LogEntity {
   @Column(nullable = false)
   private String shortUrlVisited;
 
-  @Column(nullable = false)
+  @Column
   private Date visitedDate;
+
+  @Column(columnDefinition = "boolean default false")
+  private Boolean isActive;
+
+  @Column
+  private Date deactivateDate;
 
   public long getId() {
     return id;
@@ -44,5 +50,21 @@ public class LogEntity {
 
   public void setVisitedDate(Date visitedDate) {
     this.visitedDate = visitedDate;
+  }
+
+  public Boolean isActive() {
+    return isActive;
+  }
+
+  public void setActive(Boolean active) {
+    isActive = active;
+  }
+
+  public Date getDeactivateDate() {
+    return deactivateDate;
+  }
+
+  public void setDeactivateDate(Date deactivateDate) {
+    this.deactivateDate = deactivateDate;
   }
 }

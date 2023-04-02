@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -20,11 +21,12 @@ public class UrlEntity {
   private Date createdDate;
 
   @Column(nullable = false)
+  private String shortUrl;
+
+  @Column(nullable = false, columnDefinition = "TEXT")
   //@Lob
   private String longUrl;
 
-  @Column(nullable = false)
-  private String shortUrl;
 
   public long getId() {
     return id;
@@ -54,7 +56,8 @@ public class UrlEntity {
     return shortUrl;
   }
 
-  public void setShortUrl(String urlHash) {
-    this.shortUrl = urlHash;
+  public void setShortUrl(String shortUrl) {
+    this.shortUrl = shortUrl;
   }
+
 }
