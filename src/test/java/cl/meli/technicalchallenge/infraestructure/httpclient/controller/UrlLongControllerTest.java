@@ -4,13 +4,17 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import cl.meli.technicalchallenge.domain.model.LogDomainModel;
 import cl.meli.technicalchallenge.domain.model.UrlDomainModel;
 import cl.meli.technicalchallenge.domain.port.input.UrlLogUseCase;
 import cl.meli.technicalchallenge.domain.port.input.UrlLongUseCase;
 import cl.meli.technicalchallenge.infraestructure.httpclient.mapper.UrlLogResponseMapper;
+import cl.meli.technicalchallenge.infraestructure.httpclient.models.UrlLogResponse;
 import cl.meli.technicalchallenge.infraestructure.httpclient.models.UrlLongResponse;
+import cl.meli.technicalchallenge.mock.LogDomainModelMock;
 import cl.meli.technicalchallenge.mock.UrlDomainModelMock;
 import java.text.MessageFormat;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Assertions;
@@ -18,6 +22,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -32,7 +37,7 @@ class UrlLongControllerTest {
   UrlLongUseCase urlLongUseCase;
   @Mock
   UrlLogUseCase urlLogUseCase;
-  @Mock
+  @Spy
   UrlLogResponseMapper urlLogResponseMapper;
 
 
@@ -60,7 +65,7 @@ class UrlLongControllerTest {
   }
 
   @Test
-  void givenUrlInfo_whenShortUrlIsProvided_thenReturnTheOriginalUrl() {
+  void givenUrlOrigen_whenShortUrlIsProvided_thenReturnTheOriginalUrl() {
     HttpServletRequest httpServletRequest = new MockHttpServletRequest();
     String serverBaseUrl = String.valueOf(httpServletRequest.getRequestURL());
     String hashGenerated = "QAZXSWE";
@@ -74,5 +79,40 @@ class UrlLongControllerTest {
         urlLongController.getOriginalUrl(httpServletRequest, hashGenerated);
 
     Assertions.assertEquals(urlResponseEntity.getBody().getLongUrl(), urlDomainModelMock.getLongUrl());
+  }
+
+  @Test
+  void givenUrlInfo_whenShortUrlIsActive_thenReturnTheLogInfoForTheUrl() {
+    HttpServletRequest httpServletRequest = new MockHttpServletRequest();
+    String serverBaseUrl = String.valueOf(httpServletRequest.getRequestURL());
+    String hashGenerated = "QAZXSWE";
+    String shortUrl = MessageFormat.format("{0}/{1}", serverBaseUrl, hashGenerated);
+
+    LogDomainModel logDomainModelMock = LogDomainModelMock.buildNewModelForTest();
+    List<LogDomainModel> urlDomainModelList = List.of(logDomainModelMock);
+    when(urlLogUseCase.retrieveShortUrlInfo(shortUrl))
+        .thenReturn(urlDomainModelList);
+    ResponseEntity<UrlLogResponse> urlLogResponse = urlLongController.getUrlInfo(httpServletRequest, "QAZXSWE");
+
+    Assertions.assertTrue(urlLogResponse.getBody().getVisitedList().size() > 0);
+    Assertions.assertTrue(urlLogResponse.getBody().getStatus().isActive());
+    Assertions.assertNull(urlLogResponse.getBody().getStatus().getDeactivateDate());
+  }
+
+  @Test
+  void givenUrlInfo_whenShortUrlIsNotActive_thenReturnTheLogInfoForTheUrl() {
+    HttpServletRequest httpServletRequest = new MockHttpServletRequest();
+    String serverBaseUrl = String.valueOf(httpServletRequest.getRequestURL());
+    String hashGenerated = "QAZXSWE";
+    String shortUrl = MessageFormat.format("{0}/{1}", serverBaseUrl, hashGenerated);
+
+    LogDomainModel logDomainModelMock = LogDomainModelMock.buildDeactivateModelForTest();
+    List<LogDomainModel> urlDomainModelList = List.of(logDomainModelMock);
+    when(urlLogUseCase.retrieveShortUrlInfo(shortUrl))
+        .thenReturn(urlDomainModelList);
+    ResponseEntity<UrlLogResponse> urlLogResponse = urlLongController.getUrlInfo(httpServletRequest, "QAZXSWE");
+
+    Assertions.assertFalse(urlLogResponse.getBody().getStatus().isActive());
+    Assertions.assertNotNull(urlLogResponse.getBody().getStatus().getDeactivateDate());
   }
 }

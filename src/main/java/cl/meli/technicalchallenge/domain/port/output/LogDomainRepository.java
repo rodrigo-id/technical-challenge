@@ -4,6 +4,6 @@ import cl.meli.technicalchallenge.domain.model.LogDomainModel;
 import java.util.List;
 
 public interface LogDomainRepository {
-  void save(LogDomainModel logDomainModel);
-  List<LogDomainModel> retrieveUrlInfo(String url);
+  void saveLongInfo(LogDomainModel logDomainModel);
+  List<LogDomainModel> retrieveShortUrlInfo(String url);
 }

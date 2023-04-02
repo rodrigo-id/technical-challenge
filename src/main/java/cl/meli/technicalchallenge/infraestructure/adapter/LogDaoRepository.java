@@ -18,12 +18,12 @@ public class LogDaoRepository implements LogDomainRepository {
   }
 
   @Override
-  public void save(LogDomainModel logDomainModel) {
+  public void saveLongInfo(LogDomainModel logDomainModel) {
     logRepository.save(logRepositoryMapper.toLogEntity(logDomainModel));
   }
 
   @Override
-  public List<LogDomainModel> retrieveUrlInfo(String url) {
+  public List<LogDomainModel> retrieveShortUrlInfo(String url) {
     return logRepositoryMapper.toLogDomainModelList(logRepository.findByShortUrlVisited(url));
   }
 

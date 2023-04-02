@@ -77,12 +77,7 @@ public class UrlLongController {
 
     String shortUrl = MessageFormat.format("{0}/{1}", serverUrl, urlHash);
 
-    //String originalUrl = urlLongUseCase.retrieveLongUrl(shortUrl);
-
-    //UrlLongResponse urlResponse = new UrlLongResponse(originalUrl);
-    //return new ResponseEntity<>(urlResponse, HttpStatus.OK);
-
-    UrlLogResponse urlLogResponse = urlLogResponseMapper.toUrlLogResponse(urlLogUseCase.retrieveUrlInfo(shortUrl));
+    UrlLogResponse urlLogResponse = urlLogResponseMapper.toUrlLogResponse(urlLogUseCase.retrieveShortUrlInfo(shortUrl));
     return new ResponseEntity<>(urlLogResponse, HttpStatus.OK);
   }
 

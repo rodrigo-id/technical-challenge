@@ -7,6 +7,6 @@ public interface UrlLogUseCase {
 
   void save(String url);
   void deactivate(String url);
-  List<LogDomainModel> retrieveUrlInfo(String url);
+  List<LogDomainModel> retrieveShortUrlInfo(String url);
 
 }

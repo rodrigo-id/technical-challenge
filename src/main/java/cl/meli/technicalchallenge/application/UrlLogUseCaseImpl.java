@@ -17,7 +17,7 @@ public class UrlLogUseCaseImpl implements UrlLogUseCase {
 
   @Override
   public void save(String url) {
-    logDomainRepository.save(LogDomainModel.builder()
+    logDomainRepository.saveLongInfo(LogDomainModel.builder()
             .setShortUrlVisited(url)
             .setVisitedDate(new Date())
             .setIsActive(true)
@@ -26,7 +26,7 @@ public class UrlLogUseCaseImpl implements UrlLogUseCase {
 
   @Override
   public void deactivate(String url) {
-    logDomainRepository.save(LogDomainModel.builder()
+    logDomainRepository.saveLongInfo(LogDomainModel.builder()
         .setShortUrlVisited(url)
         .setDeactivateDate(new Date())
         .setIsActive(false)
@@ -34,8 +34,8 @@ public class UrlLogUseCaseImpl implements UrlLogUseCase {
   }
 
   @Override
-  public List<LogDomainModel> retrieveUrlInfo(String url) {
-    List<LogDomainModel> logDomainModelList = logDomainRepository.retrieveUrlInfo(url);
+  public List<LogDomainModel> retrieveShortUrlInfo(String url) {
+    List<LogDomainModel> logDomainModelList = logDomainRepository.retrieveShortUrlInfo(url);
     if (logDomainModelList.isEmpty()) {
       throw new DomainException(
           ErrorCodes.DOMAIN_SHOW_LOG_INFO.getCode(),
@@ -43,7 +43,7 @@ public class UrlLogUseCaseImpl implements UrlLogUseCase {
           "UrlLogUseCaseImpl.retrieveUrlInfo",
           ErrorCodes.DOMAIN_SHOW_LOG_INFO.getStatus());
     }
-    return logDomainRepository.retrieveUrlInfo(url);
+    return logDomainRepository.retrieveShortUrlInfo(url);
   }
 
 
