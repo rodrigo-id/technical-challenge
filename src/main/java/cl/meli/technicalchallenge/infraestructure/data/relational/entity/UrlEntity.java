@@ -1,4 +1,4 @@
-package cl.meli.technicalchallenge.infraestructure.data.entity;
+package cl.meli.technicalchallenge.infraestructure.data.relational.entity;
 
 import java.util.Date;
 import javax.persistence.Column;
