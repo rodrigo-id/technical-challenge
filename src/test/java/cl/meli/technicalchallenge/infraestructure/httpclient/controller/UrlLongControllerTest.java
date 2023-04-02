@@ -1,8 +1,11 @@
 package cl.meli.technicalchallenge.infraestructure.httpclient.controller;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import cl.meli.technicalchallenge.domain.model.UrlDomainModel;
+import cl.meli.technicalchallenge.domain.port.input.UrlLogUseCase;
 import cl.meli.technicalchallenge.domain.port.input.UrlLongUseCase;
 import cl.meli.technicalchallenge.infraestructure.httpclient.models.UrlLongResponse;
 import cl.meli.technicalchallenge.mock.UrlDomainModelMock;
@@ -26,17 +29,20 @@ class UrlLongControllerTest {
 
   @Mock
   UrlLongUseCase urlLongUseCase;
+  @Mock
+  UrlLogUseCase urlLogUseCase;
 
 
   @BeforeEach
   void setUp() {
-    urlLongController = new UrlLongController(urlLongUseCase);
+    urlLongController = new UrlLongController(urlLongUseCase, urlLogUseCase);
   }
 
   @Test
   void givenRedirectToUrl_whenAShortUrlIsProvided_thenRedirectToExpectedUrl() {
     UrlDomainModel urlDomainModelMock = UrlDomainModelMock.buildForTest();
-    when(urlLongUseCase.retrieveLongUrl("http://localhost"))
+    String shortUrl = "http://localhost";
+    when(urlLongUseCase.retrieveLongUrl(shortUrl))
         .thenReturn(urlDomainModelMock.getLongUrl());
 
     HttpServletRequest httpServletRequest = new MockHttpServletRequest();
@@ -44,6 +50,7 @@ class UrlLongControllerTest {
 
     urlLongController.redirectToUrl(httpServletRequest,httpServletResponse);
 
+    verify(urlLogUseCase, times(1)).save(shortUrl);
     Assertions.assertEquals(302, httpServletResponse.getStatus());
     Assertions.assertEquals(urlDomainModelMock.getLongUrl(), httpServletResponse.getHeader("location"));
     Assertions.assertEquals("close", httpServletResponse.getHeader("connection"));

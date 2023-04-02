@@ -1,11 +1,14 @@
 package cl.meli.technicalchallenge.infraestructure.config;
 
 import cl.meli.technicalchallenge.application.UrlDeleteUseCaseImpl;
+import cl.meli.technicalchallenge.application.UrlLogUseCaseImpl;
 import cl.meli.technicalchallenge.application.UrlLongUseCaseImpl;
 import cl.meli.technicalchallenge.application.UrlShortUseCaseImpl;
 import cl.meli.technicalchallenge.domain.port.input.UrlDeleteUseCase;
+import cl.meli.technicalchallenge.domain.port.input.UrlLogUseCase;
 import cl.meli.technicalchallenge.domain.port.input.UrlLongUseCase;
 import cl.meli.technicalchallenge.domain.port.input.UrlShortUseCase;
+import cl.meli.technicalchallenge.domain.port.output.LogDomainRepository;
 import cl.meli.technicalchallenge.domain.port.output.UrlDomainRepository;
 import cl.meli.technicalchallenge.domain.service.HashService;
 import cl.meli.technicalchallenge.domain.service.impl.HashServiceImpl;
@@ -37,5 +40,10 @@ public class BeanCustomConfig {
   @Bean
   public UrlDeleteUseCase urlDeleteUseCase(UrlDomainRepository urlDomainRepository) {
     return new UrlDeleteUseCaseImpl(urlDomainRepository, ValidatorUtil.getInstance());
+  }
+
+  @Bean
+  public UrlLogUseCase urlLogUseCaseImpl(LogDomainRepository logDomainRepository) {
+    return new UrlLogUseCaseImpl(logDomainRepository);
   }
 }

@@ -15,7 +15,9 @@ public class HashServiceImpl implements HashService {
     MessageDigest sha256Hash = MessageDigest.getInstance("SHA-256");
     byte[] sha256EncodedHash = sha256Hash.digest(url.getBytes(StandardCharsets.UTF_8));
     String encoded = Base64.getEncoder().encodeToString(sha256EncodedHash);
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append(encoded.replace("/", ""));
 
-    return encoded.substring(0, LENGTH).toUpperCase();
+    return stringBuilder.substring(0, LENGTH).toUpperCase();
   }
 }

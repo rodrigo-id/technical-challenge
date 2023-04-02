@@ -1,7 +1,7 @@
 package cl.meli.technicalchallenge.infraestructure.adapter.mapper;
 
 import cl.meli.technicalchallenge.domain.model.UrlDomainModel;
-import cl.meli.technicalchallenge.infraestructure.data.relational.entity.UrlEntity;
+import cl.meli.technicalchallenge.infraestructure.data.urlstorage.entities.UrlEntity;
 import java.util.Optional;
 import org.springframework.stereotype.Component;
 

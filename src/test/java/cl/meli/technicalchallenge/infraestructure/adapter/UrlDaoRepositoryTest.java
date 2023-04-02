@@ -6,8 +6,8 @@ import static org.mockito.Mockito.when;
 
 import cl.meli.technicalchallenge.domain.model.UrlDomainModel;
 import cl.meli.technicalchallenge.infraestructure.adapter.mapper.UrlRepositoryMapper;
-import cl.meli.technicalchallenge.infraestructure.data.relational.UrlRepository;
-import cl.meli.technicalchallenge.infraestructure.data.relational.entity.UrlEntity;
+import cl.meli.technicalchallenge.infraestructure.data.urlstorage.UrlRepository;
+import cl.meli.technicalchallenge.infraestructure.data.urlstorage.entities.UrlEntity;
 import cl.meli.technicalchallenge.mock.UrlDomainModelMock;
 import cl.meli.technicalchallenge.mock.UrlEntityMock;
 import java.util.Optional;
@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
 @ExtendWith(MockitoExtension.class)

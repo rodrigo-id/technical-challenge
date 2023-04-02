@@ -3,7 +3,7 @@ package cl.meli.technicalchallenge.infraestructure.adapter;
 import cl.meli.technicalchallenge.domain.model.UrlDomainModel;
 import cl.meli.technicalchallenge.domain.port.output.UrlDomainRepository;
 import cl.meli.technicalchallenge.infraestructure.adapter.mapper.UrlRepositoryMapper;
-import cl.meli.technicalchallenge.infraestructure.data.relational.UrlRepository;
+import cl.meli.technicalchallenge.infraestructure.data.urlstorage.UrlRepository;
 import java.util.Objects;
 import javax.transaction.Transactional;
 import org.springframework.cache.CacheManager;
@@ -53,6 +53,5 @@ public class UrlDaoRepository implements UrlDomainRepository {
     Objects.requireNonNull(cacheManager.getCache(CACHE_DATA)).evict(urlDomainModel.getShortUrl());
     Objects.requireNonNull(cacheManager.getCache(CACHE_DATA)).evict(urlDomainModel.getLongUrl());
   }
-
 
 }

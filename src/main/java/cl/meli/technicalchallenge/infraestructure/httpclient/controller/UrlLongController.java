@@ -1,5 +1,6 @@
 package cl.meli.technicalchallenge.infraestructure.httpclient.controller;
 
+import cl.meli.technicalchallenge.domain.port.input.UrlLogUseCase;
 import cl.meli.technicalchallenge.domain.port.input.UrlLongUseCase;
 import cl.meli.technicalchallenge.infraestructure.httpclient.models.UrlLongResponse;
 import cl.meli.technicalchallenge.shared.utils.UrlConverterUtil;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,9 +20,11 @@ public class UrlLongController {
 
   private final UrlLongUseCase urlLongUseCase;
   private UrlConverterUtil urlConverterUtil;
+  private final UrlLogUseCase urlLogUseCase;
 
-  public UrlLongController(UrlLongUseCase urlLongUseCase) {
+  public UrlLongController(UrlLongUseCase urlLongUseCase, UrlLogUseCase urlLogUseCase) {
     this.urlLongUseCase = urlLongUseCase;
+    this.urlLogUseCase = urlLogUseCase;
     this.urlConverterUtil = UrlConverterUtil.getInstance();
   }
 
@@ -29,7 +33,12 @@ public class UrlLongController {
       HttpServletRequest httpServletRequest,
       HttpServletResponse httpServletResponse) {
 
-    String originalUrl = urlLongUseCase.retrieveLongUrl(httpServletRequest.getRequestURL().toString());
+    String shortUrl = httpServletRequest.getRequestURL().toString();
+    String originalUrl = urlLongUseCase.retrieveLongUrl(shortUrl);
+    if(StringUtils.hasText(originalUrl)) {
+      urlLogUseCase.save(shortUrl);
+    }
+
     httpServletResponse.setStatus(302);
     httpServletResponse.setHeader(HttpHeaders.LOCATION, originalUrl);
     httpServletResponse.setHeader(HttpHeaders.CONNECTION, "close");
