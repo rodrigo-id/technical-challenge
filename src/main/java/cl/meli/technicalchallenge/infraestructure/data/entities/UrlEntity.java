@@ -1,4 +1,4 @@
-package cl.meli.technicalchallenge.infraestructure.data.urlstorage.entities;
+package cl.meli.technicalchallenge.infraestructure.data.entities;
 
 import java.util.Date;
 import javax.persistence.Column;

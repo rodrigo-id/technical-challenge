@@ -1,6 +1,6 @@
-package cl.meli.technicalchallenge.infraestructure.data.urlstorage;
+package cl.meli.technicalchallenge.infraestructure.data;
 
-import cl.meli.technicalchallenge.infraestructure.data.urlstorage.entities.UrlEntity;
+import cl.meli.technicalchallenge.infraestructure.data.entities.UrlEntity;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

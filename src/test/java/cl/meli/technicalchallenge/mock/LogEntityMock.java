@@ -1,6 +1,6 @@
 package cl.meli.technicalchallenge.mock;
 
-import cl.meli.technicalchallenge.infraestructure.data.urlstorage.entities.LogEntity;
+import cl.meli.technicalchallenge.infraestructure.data.entities.LogEntity;
 import java.util.Date;
 
 public class LogEntityMock {

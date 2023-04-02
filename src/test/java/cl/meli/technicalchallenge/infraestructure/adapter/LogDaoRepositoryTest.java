@@ -6,8 +6,8 @@ import static org.mockito.Mockito.when;
 
 import cl.meli.technicalchallenge.domain.model.LogDomainModel;
 import cl.meli.technicalchallenge.infraestructure.adapter.mapper.LogRepositoryMapper;
-import cl.meli.technicalchallenge.infraestructure.data.urlstorage.LogRepository;
-import cl.meli.technicalchallenge.infraestructure.data.urlstorage.entities.LogEntity;
+import cl.meli.technicalchallenge.infraestructure.data.LogRepository;
+import cl.meli.technicalchallenge.infraestructure.data.entities.LogEntity;
 import cl.meli.technicalchallenge.mock.LogDomainModelMock;
 import cl.meli.technicalchallenge.mock.LogEntityMock;
 import org.junit.jupiter.api.BeforeEach;

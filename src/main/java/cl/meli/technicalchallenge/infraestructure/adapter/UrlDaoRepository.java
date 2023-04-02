@@ -3,7 +3,7 @@ package cl.meli.technicalchallenge.infraestructure.adapter;
 import cl.meli.technicalchallenge.domain.model.UrlDomainModel;
 import cl.meli.technicalchallenge.domain.port.output.UrlDomainRepository;
 import cl.meli.technicalchallenge.infraestructure.adapter.mapper.UrlRepositoryMapper;
-import cl.meli.technicalchallenge.infraestructure.data.urlstorage.UrlRepository;
+import cl.meli.technicalchallenge.infraestructure.data.UrlRepository;
 import java.util.Objects;
 import javax.transaction.Transactional;
 import org.springframework.cache.CacheManager;

@@ -1,7 +1,7 @@
 package cl.meli.technicalchallenge.infraestructure.adapter.mapper;
 
 import cl.meli.technicalchallenge.domain.model.LogDomainModel;
-import cl.meli.technicalchallenge.infraestructure.data.urlstorage.entities.LogEntity;
+import cl.meli.technicalchallenge.infraestructure.data.entities.LogEntity;
 import cl.meli.technicalchallenge.mock.LogDomainModelMock;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

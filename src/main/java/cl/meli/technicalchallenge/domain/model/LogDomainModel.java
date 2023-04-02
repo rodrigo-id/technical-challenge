@@ -6,7 +6,7 @@ public class LogDomainModel {
 
   private String shortUrlVisited;
   private Date visitedDate;
-  private boolean isActive;
+  private Boolean isActive;
   private Date deactivateDate;
 
   public String getShortUrlVisited() {
@@ -25,11 +25,11 @@ public class LogDomainModel {
     this.visitedDate = visitedDate;
   }
 
-  public boolean isActive() {
+  public Boolean isActive() {
     return isActive;
   }
 
-  public void setActive(boolean active) {
+  public void setActive(Boolean active) {
     isActive = active;
   }
 
@@ -48,7 +48,7 @@ public class LogDomainModel {
   public static final class Builder {
     private final LogDomainModel logDomainModel;
 
-    public Builder() {
+    private Builder() {
       this.logDomainModel = new LogDomainModel();
     }
 

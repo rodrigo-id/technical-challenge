@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import cl.meli.technicalchallenge.domain.model.UrlDomainModel;
 import cl.meli.technicalchallenge.domain.port.input.UrlLogUseCase;
 import cl.meli.technicalchallenge.domain.port.input.UrlLongUseCase;
+import cl.meli.technicalchallenge.infraestructure.httpclient.mapper.UrlLogResponseMapper;
 import cl.meli.technicalchallenge.infraestructure.httpclient.models.UrlLongResponse;
 import cl.meli.technicalchallenge.mock.UrlDomainModelMock;
 import java.text.MessageFormat;
@@ -31,11 +32,13 @@ class UrlLongControllerTest {
   UrlLongUseCase urlLongUseCase;
   @Mock
   UrlLogUseCase urlLogUseCase;
+  @Mock
+  UrlLogResponseMapper urlLogResponseMapper;
 
 
   @BeforeEach
   void setUp() {
-    urlLongController = new UrlLongController(urlLongUseCase, urlLogUseCase);
+    urlLongController = new UrlLongController(urlLongUseCase, urlLogUseCase, urlLogResponseMapper);
   }
 
   @Test

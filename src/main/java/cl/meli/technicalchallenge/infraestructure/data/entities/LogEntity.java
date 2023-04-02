@@ -1,4 +1,4 @@
-package cl.meli.technicalchallenge.infraestructure.data.urlstorage.entities;
+package cl.meli.technicalchallenge.infraestructure.data.entities;
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -23,10 +23,21 @@ public class LogEntity {
   private Date visitedDate;
 
   @Column(columnDefinition = "boolean default false")
-  private Boolean isActive;
+  private Boolean active;
 
   @Column
   private Date deactivateDate;
+
+  @Column(nullable = false)
+  private String campaignType;
+
+  public String getCampaignType() {
+    return campaignType;
+  }
+
+  public void setCampaignType(String campaignType) {
+    this.campaignType = campaignType;
+  }
 
   public long getId() {
     return id;
@@ -52,12 +63,12 @@ public class LogEntity {
     this.visitedDate = visitedDate;
   }
 
-  public Boolean isActive() {
-    return isActive;
+  public Boolean getActive() {
+    return active;
   }
 
   public void setActive(Boolean active) {
-    isActive = active;
+    this.active = active;
   }
 
   public Date getDeactivateDate() {

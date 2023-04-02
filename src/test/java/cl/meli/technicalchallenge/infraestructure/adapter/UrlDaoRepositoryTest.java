@@ -6,8 +6,8 @@ import static org.mockito.Mockito.when;
 
 import cl.meli.technicalchallenge.domain.model.UrlDomainModel;
 import cl.meli.technicalchallenge.infraestructure.adapter.mapper.UrlRepositoryMapper;
-import cl.meli.technicalchallenge.infraestructure.data.urlstorage.UrlRepository;
-import cl.meli.technicalchallenge.infraestructure.data.urlstorage.entities.UrlEntity;
+import cl.meli.technicalchallenge.infraestructure.data.UrlRepository;
+import cl.meli.technicalchallenge.infraestructure.data.entities.UrlEntity;
 import cl.meli.technicalchallenge.mock.UrlDomainModelMock;
 import cl.meli.technicalchallenge.mock.UrlEntityMock;
 import java.util.Optional;
