@@ -1,7 +1,7 @@
 package cl.meli.technicalchallenge.mock;
 
 import cl.meli.technicalchallenge.domain.model.LogDomainModel;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class LogDomainModelMock {
 
@@ -10,7 +10,7 @@ public class LogDomainModelMock {
   public static LogDomainModel buildNewModelForTest() {
     return LogDomainModel.builder()
         .setIsActive(true)
-        .setVisitedDate(new Date())
+        .setVisitedDate(LocalDateTime.now())
         .setShortUrlVisited(SHORT_URL)
         .build();
   }
@@ -18,7 +18,7 @@ public class LogDomainModelMock {
   public static LogDomainModel buildDeactivateModelForTest() {
     return LogDomainModel.builder()
         .setIsActive(false)
-        .setDeactivateDate(new Date())
+        .setDeactivateDate(LocalDateTime.now())
         .setShortUrlVisited(SHORT_URL)
         .build();
   }

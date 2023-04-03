@@ -1,6 +1,6 @@
 package cl.meli.technicalchallenge.infraestructure.data.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,14 +19,14 @@ public class LogEntity {
   @Column(nullable = false)
   private String shortUrlVisited;
 
-  @Column
-  private Date visitedDate;
+  @Column( columnDefinition = "TIMESTAMP")
+  private LocalDateTime visitedDate;
 
   @Column(columnDefinition = "boolean default false")
   private Boolean active;
 
-  @Column
-  private Date deactivateDate;
+  @Column( columnDefinition = "TIMESTAMP")
+  private LocalDateTime deactivateDate;
 
   @Column(nullable = false)
   private String campaignType;
@@ -55,11 +55,11 @@ public class LogEntity {
     this.shortUrlVisited = shortUrlVisited;
   }
 
-  public Date getVisitedDate() {
+  public LocalDateTime getVisitedDate() {
     return visitedDate;
   }
 
-  public void setVisitedDate(Date visitedDate) {
+  public void setVisitedDate(LocalDateTime visitedDate) {
     this.visitedDate = visitedDate;
   }
 
@@ -71,11 +71,11 @@ public class LogEntity {
     this.active = active;
   }
 
-  public Date getDeactivateDate() {
+  public LocalDateTime getDeactivateDate() {
     return deactivateDate;
   }
 
-  public void setDeactivateDate(Date deactivateDate) {
+  public void setDeactivateDate(LocalDateTime deactivateDate) {
     this.deactivateDate = deactivateDate;
   }
 }

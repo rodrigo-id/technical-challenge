@@ -9,7 +9,7 @@ import cl.meli.technicalchallenge.shared.error.DomainException;
 import cl.meli.technicalchallenge.shared.error.ErrorCodes;
 import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class UrlShortUseCaseImpl implements UrlShortUseCase {
 
@@ -59,7 +59,7 @@ public class UrlShortUseCaseImpl implements UrlShortUseCase {
     UrlDomainModel urlDomainModel = UrlDomainModel.builder()
         .setLongUrl(longUrl)
         .setShortUrl(shortUrl)
-        .setCreatedDate(new Date())
+        .setCreatedDate(LocalDateTime.now())
         .build();
 
     urlDomainRepository.saveUrl(urlDomainModel);

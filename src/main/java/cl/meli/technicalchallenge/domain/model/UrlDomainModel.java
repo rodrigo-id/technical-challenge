@@ -1,12 +1,12 @@
 package cl.meli.technicalchallenge.domain.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class UrlDomainModel {
 
   private String longUrl;
   private String shortUrl;
-  private Date createdDate;
+  private LocalDateTime createdDate;
   private boolean isPresent;
 
   public String getLongUrl() {
@@ -25,11 +25,11 @@ public class UrlDomainModel {
     this.shortUrl = shortUrl;
   }
 
-  public Date getCreatedDate() {
+  public LocalDateTime getCreatedDate() {
     return createdDate;
   }
 
-  public void setCreatedDate(Date createdDate) {
+  public void setCreatedDate(LocalDateTime createdDate) {
     this.createdDate = createdDate;
   }
 
@@ -60,7 +60,7 @@ public class UrlDomainModel {
       return this;
     }
 
-    public Builder setCreatedDate(Date createdDate) {
+    public Builder setCreatedDate(LocalDateTime createdDate) {
       urlDomainModel.setCreatedDate(createdDate);
       return this;
     }
