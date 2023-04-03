@@ -18,12 +18,12 @@ public class UrlLogResponseMapper {
             .filter(logDomainModel -> logDomainModel.getVisitedDate() != null)
             .map(logVisited ->
                 Visited.builder()
-                .setVisitedDate(logVisited.getVisitedDate().toString())
+                .setDate(logVisited.getVisitedDate().toString())
                 .build())
             .collect(Collectors.toList()));
     urlLogResponse.setStatus(
         logDomainModelList.stream()
-            .filter(logDomainModel -> !logDomainModel.isActive())
+            .filter(logDomainModel -> !logDomainModel.isActive()) // TODO reparar este caso pra q priorice por fecha
             .findFirst()
             .map(logDomainModel -> Status.builder()
                 .setActive(logDomainModel.isActive())
