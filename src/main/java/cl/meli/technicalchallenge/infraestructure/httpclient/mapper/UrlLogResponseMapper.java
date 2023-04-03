@@ -23,7 +23,7 @@ public class UrlLogResponseMapper {
             .collect(Collectors.toList()));
     urlLogResponse.setStatus(
         logDomainModelList.stream()
-            .filter(logDomainModel -> !logDomainModel.isActive())
+            .filter(logDomainModel -> !logDomainModel.isActive()) // TODO reparar este caso pra q priorice por fecha
             .findFirst()
             .map(logDomainModel -> Status.builder()
                 .setActive(logDomainModel.isActive())
