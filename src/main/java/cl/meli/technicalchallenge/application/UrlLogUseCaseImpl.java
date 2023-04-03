@@ -1,11 +1,12 @@
 package cl.meli.technicalchallenge.application;
 
 import cl.meli.technicalchallenge.domain.model.LogDomainModel;
+import cl.meli.technicalchallenge.domain.model.LogVisitDomainModel;
 import cl.meli.technicalchallenge.domain.port.input.UrlLogUseCase;
 import cl.meli.technicalchallenge.domain.port.output.LogDomainRepository;
 import cl.meli.technicalchallenge.shared.error.DomainException;
 import cl.meli.technicalchallenge.shared.error.ErrorCodes;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class UrlLogUseCaseImpl implements UrlLogUseCase {
@@ -19,7 +20,7 @@ public class UrlLogUseCaseImpl implements UrlLogUseCase {
   public void save(String url) {
     logDomainRepository.saveLongInfo(LogDomainModel.builder()
             .setShortUrlVisited(url)
-            .setVisitedDate(new Date())
+            .setVisitedDate(LocalDateTime.now())
             .setIsActive(true)
             .build());
   }
@@ -28,7 +29,7 @@ public class UrlLogUseCaseImpl implements UrlLogUseCase {
   public void deactivate(String url) {
     logDomainRepository.saveLongInfo(LogDomainModel.builder()
         .setShortUrlVisited(url)
-        .setDeactivateDate(new Date())
+        .setDeactivateDate(LocalDateTime.now())
         .setIsActive(false)
         .build());
   }
@@ -44,6 +45,11 @@ public class UrlLogUseCaseImpl implements UrlLogUseCase {
           ErrorCodes.DOMAIN_SHOW_LOG_INFO.getStatus());
     }
     return logDomainRepository.retrieveShortUrlInfo(url);
+  }
+
+  @Override
+  public List<LogVisitDomainModel> retrieveTimesVisitForShortUrl() {
+    return logDomainRepository.retrieveTimesVisitForShortUrl();
   }
 
 

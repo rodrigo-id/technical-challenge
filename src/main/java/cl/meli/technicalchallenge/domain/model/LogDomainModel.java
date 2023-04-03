@@ -1,13 +1,13 @@
 package cl.meli.technicalchallenge.domain.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class LogDomainModel {
 
   private String shortUrlVisited;
-  private Date visitedDate;
+  private LocalDateTime visitedDate;
   private Boolean isActive;
-  private Date deactivateDate;
+  private LocalDateTime deactivateDate;
 
   public String getShortUrlVisited() {
     return shortUrlVisited;
@@ -17,11 +17,11 @@ public class LogDomainModel {
     this.shortUrlVisited = shortUrlVisited;
   }
 
-  public Date getVisitedDate() {
+  public LocalDateTime getVisitedDate() {
     return visitedDate;
   }
 
-  public void setVisitedDate(Date visitedDate) {
+  public void setVisitedDate(LocalDateTime visitedDate) {
     this.visitedDate = visitedDate;
   }
 
@@ -33,12 +33,22 @@ public class LogDomainModel {
     isActive = active;
   }
 
-  public Date getDeactivateDate() {
+  public LocalDateTime getDeactivateDate() {
     return deactivateDate;
   }
 
-  public void setDeactivateDate(Date deactivateDate) {
+  public void setDeactivateDate(LocalDateTime deactivateDate) {
     this.deactivateDate = deactivateDate;
+  }
+
+  @Override
+  public String toString() {
+    return "LogDomainModel{" +
+        "shortUrlVisited='" + shortUrlVisited + '\'' +
+        ", visitedDate=" + visitedDate +
+        ", isActive=" + isActive +
+        ", deactivateDate=" + deactivateDate +
+        '}';
   }
 
   public static Builder builder() {
@@ -57,7 +67,7 @@ public class LogDomainModel {
       return this;
     }
 
-    public Builder setVisitedDate(Date visitedDate) {
+    public Builder setVisitedDate(LocalDateTime visitedDate) {
       logDomainModel.setVisitedDate(visitedDate);
       return this;
     }
@@ -67,7 +77,7 @@ public class LogDomainModel {
       return this;
     }
 
-    public Builder setDeactivateDate(Date deactivateDate) {
+    public Builder setDeactivateDate(LocalDateTime deactivateDate) {
       logDomainModel.setDeactivateDate(deactivateDate);
       return this;
     }

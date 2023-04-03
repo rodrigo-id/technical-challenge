@@ -1,12 +1,11 @@
 package cl.meli.technicalchallenge.infraestructure.data.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -17,14 +16,13 @@ public class UrlEntity {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
 
-  @Column(nullable = false)
-  private Date createdDate;
+  @Column(nullable = false, columnDefinition = "TIMESTAMP")
+  private LocalDateTime createdDate;
 
   @Column(nullable = false)
   private String shortUrl;
 
   @Column(nullable = false, columnDefinition = "TEXT")
-  //@Lob
   private String longUrl;
 
 
@@ -36,11 +34,11 @@ public class UrlEntity {
     this.id = id;
   }
 
-  public Date getCreatedDate() {
+  public LocalDateTime getCreatedDate() {
     return createdDate;
   }
 
-  public void setCreatedDate(Date createdDate) {
+  public void setCreatedDate(LocalDateTime createdDate) {
     this.createdDate = createdDate;
   }
 

@@ -1,9 +1,13 @@
 package cl.meli.technicalchallenge.infraestructure.adapter;
 
 import cl.meli.technicalchallenge.domain.model.LogDomainModel;
+import cl.meli.technicalchallenge.domain.model.LogVisitDomainModel;
 import cl.meli.technicalchallenge.domain.port.output.LogDomainRepository;
 import cl.meli.technicalchallenge.infraestructure.adapter.mapper.LogRepositoryMapper;
 import cl.meli.technicalchallenge.infraestructure.data.LogRepository;
+import cl.meli.technicalchallenge.infraestructure.data.dto.LogDto;
+import cl.meli.technicalchallenge.infraestructure.data.entities.LogEntity;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;
 
@@ -26,5 +30,18 @@ public class LogDaoRepository implements LogDomainRepository {
   public List<LogDomainModel> retrieveShortUrlInfo(String url) {
     return logRepositoryMapper.toLogDomainModelList(logRepository.findByShortUrlVisited(url));
   }
+
+  @Override
+  public List<LogVisitDomainModel> retrieveTimesVisitForShortUrl() {
+    List<LogDto> logDto = logRepository.countShortUrlVisit();
+    List<LogEntity> logEntityList = new ArrayList<>();
+    logDto.forEach(
+        shortUrl -> {
+          logEntityList.addAll(logRepository.findShortUrlLastCalls(shortUrl.getShortUrlVisited()));
+        }
+    );
+    return logRepositoryMapper.toLogVisitDomainModel(logEntityList, logDto);
+  }
+
 
 }
