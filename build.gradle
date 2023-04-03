@@ -18,6 +18,8 @@ ext {
 
 def extraDependencies= [
     'org.hashids:hashids:1.0.3',
+	'io.springfox:springfox-swagger-ui:3.0.0',
+	'org.springdoc:springdoc-openapi-ui:1.6.4',
 ]
 
 dependencies {

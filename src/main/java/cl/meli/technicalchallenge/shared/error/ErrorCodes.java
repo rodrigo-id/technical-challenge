@@ -18,7 +18,7 @@ public enum ErrorCodes {
   DOMAIN_GENERATE_HASH(
       "Error problemas al generar el hash",
       "0004",
-      HttpStatus.NOT_FOUND),
+      HttpStatus.INTERNAL_SERVER_ERROR),
   DOMAIN_SHOW_LOG_INFO(
       "No se registran visitas para la url",
       "0005",

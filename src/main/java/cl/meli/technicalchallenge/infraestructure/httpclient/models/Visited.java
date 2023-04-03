@@ -1,14 +1,14 @@
 package cl.meli.technicalchallenge.infraestructure.httpclient.models;
 
 public class Visited {
-  private String visitedDate;
+  private String date;
 
-  public String getVisitedDate() {
-    return visitedDate;
+  public String getDate() {
+    return date;
   }
 
-  public void setVisitedDate(String visitedDate) {
-    this.visitedDate = visitedDate;
+  public void setDate(String date) {
+    this.date = date;
   }
 
   public static Builder builder() {
@@ -22,8 +22,8 @@ public class Visited {
       this.visited = new Visited();
     }
 
-    public Builder setVisitedDate(String visitedDate) {
-      visited.setVisitedDate(visitedDate);
+    public Builder setDate(String date) {
+      visited.setDate(date);
       return this;
     }
     public Visited build() {
