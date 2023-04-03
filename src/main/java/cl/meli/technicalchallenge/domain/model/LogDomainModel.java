@@ -41,6 +41,16 @@ public class LogDomainModel {
     this.deactivateDate = deactivateDate;
   }
 
+  @Override
+  public String toString() {
+    return "LogDomainModel{" +
+        "shortUrlVisited='" + shortUrlVisited + '\'' +
+        ", visitedDate=" + visitedDate +
+        ", isActive=" + isActive +
+        ", deactivateDate=" + deactivateDate +
+        '}';
+  }
+
   public static Builder builder() {
     return new Builder();
   }

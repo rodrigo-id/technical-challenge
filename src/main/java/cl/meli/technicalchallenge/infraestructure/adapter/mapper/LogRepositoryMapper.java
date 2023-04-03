@@ -2,9 +2,10 @@ package cl.meli.technicalchallenge.infraestructure.adapter.mapper;
 
 import cl.meli.technicalchallenge.domain.model.LogDomainModel;
 import cl.meli.technicalchallenge.domain.model.LogVisitDomainModel;
-import cl.meli.technicalchallenge.infraestructure.data.dto.ILogDto;
+import cl.meli.technicalchallenge.infraestructure.data.dto.LogDto;
 import cl.meli.technicalchallenge.infraestructure.data.entities.LogEntity;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
@@ -32,7 +33,7 @@ public class LogRepositoryMapper {
         .collect(Collectors.toList());
   }
 
-  public List<LogVisitDomainModel> toLogVisitDomainModel(List<LogEntity> logEntityList, List<ILogDto> iLogsDto) {
+  public List<LogVisitDomainModel> toLogVisitDomainModel(List<LogEntity> logEntityList, List<LogDto> iLogsDto) {
       return iLogsDto.stream()
         .map(logs -> LogVisitDomainModel.builder()
             .setShortUrl(logs.getShortUrlVisited())
